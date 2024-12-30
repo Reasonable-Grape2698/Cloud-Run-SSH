@@ -17,7 +17,8 @@ RUN apk add --no-cache --upgrade logrotate \
     sudo \
     curl \
     openssh-keygen \
-    openrc && \
+    openrc \
+    openssh-keygen && \
   echo "**** install openssh-server ****" && \
   if [ -z ${OPENSSH_RELEASE+x} ]; then \
     OPENSSH_RELEASE=$(curl -sL "http://dl-cdn.alpinelinux.org/alpine/v3.20/main/x86_64/APKINDEX.tar.gz" | tar -xz -C /tmp && \
@@ -30,7 +31,7 @@ RUN apk add --no-cache --upgrade logrotate \
   rc-update add sshd && \
   rm -rf \
     /tmp/* \
-    $HOME/.cache && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -b 521 -t ecdsa -C"$(id -un)@$(hostname)"
+    $HOME/.cache && ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -b 521 -t ed25519 -C"$(id -un)@$(hostname)"
 # add local files
 COPY /root /
 COPY /ssh /root/.ssh
