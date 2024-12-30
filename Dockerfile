@@ -33,7 +33,6 @@ RUN apk add --no-cache --upgrade logrotate \
     $HOME/.cache && ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -b 521 -t ecdsa -C"$(id -un)@$(hostname)"
 # add local files
 COPY /root /
-COPY /.ssh /root/.ssh
 
 EXPOSE 8080
 
